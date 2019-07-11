@@ -1,0 +1,15 @@
+{
+	"authors": [
+		"Hiroki Noda"
+	],
+	"dependencies": {
+		"imagefmt": "~>2.0.1"
+	},
+	"toolchainRequirements": {
+		"frontend": ">=2.087"
+	},
+	"copyright": "Copyright © 2019, Hiroki Noda",
+	"description": "mandelbrot porting from Programming Rust.",
+	"license": "BSL-1.0",
+	"name": "mandelbrot"
+}
