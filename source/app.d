@@ -24,9 +24,9 @@ alias Pair(T) = Nullable!(Tuple!(T, T));
 
 Pair!T parsePair(T, char separator)(string s) pure @safe if (__traits(isArithmetic, T))
 {
-    import std.algorithm : countUntil;
+    import std.string : indexOf;
 
-    immutable index = s.countUntil(separator);
+    immutable index = s.indexOf(separator);
     if (index == -1)
         return (typeof(return)).init;
     try
