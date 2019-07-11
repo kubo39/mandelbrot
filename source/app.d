@@ -40,12 +40,19 @@ Pair!T parsePair(T, char separator)(string s) pure @safe if (__traits(isArithmet
 
 pure @safe unittest
 {
-    assert(parsePair!(int, ',')("").isNull);
-    assert(parsePair!(int, ',')("10,").isNull);
-    assert(parsePair!(int, ',')("10,20").get() == tuple(10, 20));
-    assert(parsePair!(int, ',')("10,20xy").isNull);
-    assert(parsePair!(double, 'x')("0.5x").isNull);
-    assert(parsePair!(double, 'x')("0.5x1.5").get() == tuple(0.5, 1.5));
+    import std.meta : AliasSeq;
+    foreach (T; AliasSeq!(int, long, uint, ulong))
+    {
+        assert(parsePair!(T, ',')("").isNull);
+        assert(parsePair!(T, ',')("10,").isNull);
+        assert(parsePair!(T, ',')("10,20").get() == tuple(10, 20));
+        assert(parsePair!(T, ',')("10,20xy").isNull);
+    }
+    foreach (T; AliasSeq!(float, double))
+    {
+        assert(parsePair!(T, 'x')("0.5x").isNull);
+        assert(parsePair!(T, 'x')("0.5x1.5").get() == tuple(0.5, 1.5));
+    }
 }
 
 Nullable!(Complex!double) parseComplex(string s) pure @safe
