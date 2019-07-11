@@ -5,7 +5,7 @@
 ## ビルド
 
 ```console
-$ dub build --build=release
+$ dub build -b release
 ```
 
 ## 実行
