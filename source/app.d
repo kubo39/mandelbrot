@@ -62,8 +62,8 @@ pure @safe unittest
 }
 
 Complex!double pixelToPoint(T)(Tuple!(T, T) bounds, Tuple!(T, T) pixel,
-                               Complex!double upperLeft,
-                               Complex!double lowerRight) @nogc pure nothrow @safe
+                               Complex!double upperLeft, Complex!double lowerRight) @nogc pure nothrow @safe
+    if (__traits(isIntegral, T))
 {
     immutable width = lowerRight.re - upperLeft.re;
     immutable height = upperLeft.im - lowerRight.im;
@@ -80,6 +80,7 @@ Complex!double pixelToPoint(T)(Tuple!(T, T) bounds, Tuple!(T, T) pixel,
 
 void render(T)(ref ubyte[] pixels, Tuple!(T, T) bounds,
                Complex!double upperLeft, Complex!double lowerRight) @nogc pure nothrow @safe
+    if (__traits(isIntegral,T))
 in { assert(pixels.length == bounds[0] * bounds[1]); }
 do
 {
@@ -96,8 +97,8 @@ do
     }
 }
 
-int writeImage(T : int)(string filename, const ubyte[] pixels,
-                        Tuple!(T, T) bounds) nothrow @nogc
+int writeImage(T)(string filename, const ubyte[] pixels, Tuple!(T, T) bounds) nothrow @nogc
+    if (__traits(isIntegral,T))
 {
     return write_image(filename, bounds[0].to!int, bounds[1].to!int, pixels);
 }
