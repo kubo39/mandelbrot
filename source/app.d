@@ -59,7 +59,7 @@ Nullable!(Complex!double) parseComplex(string s) pure @safe
 {
     immutable pair = parsePair!(double, ',')(s);
     if (pair.isNull) return (typeof(return)).init;
-    return typeof(return)(complex(pair[0], pair[1]));
+    return typeof(return)(complex(pair.expand));
 }
 
 pure @safe unittest
