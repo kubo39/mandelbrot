@@ -104,8 +104,7 @@ do
     }
 }
 
-int writeImage(T)(string filename, const ubyte[] pixels, Tuple!(T, T) bounds) nothrow @nogc
-    if (__traits(isIntegral,T))
+int writeImage(string filename, const ubyte[] pixels, Tuple!(int, int) bounds) nothrow @nogc
 {
     return write_image(filename, bounds.expand, pixels);
 }
