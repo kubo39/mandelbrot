@@ -107,7 +107,7 @@ do
 int writeImage(T)(string filename, const ubyte[] pixels, Tuple!(T, T) bounds) nothrow @nogc
     if (__traits(isIntegral,T))
 {
-    return write_image(filename, bounds[0].to!int, bounds[1].to!int, pixels);
+    return write_image(filename, bounds.expand, pixels);
 }
 
 version(unittest) { void main() {} }
