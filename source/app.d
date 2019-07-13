@@ -8,7 +8,7 @@ import std.typecons : Nullable, Tuple, tuple;
 
 import imagefmt : write_image;
 
-Nullable!uint escapeTime(uint limit)(Complex!double c) @nogc nothrow pure @safe
+Nullable!uint escapeTime(Complex!double c, uint limit) @nogc nothrow pure @safe
 {
     auto z = complex(0.0, 0.0);
     foreach (i; 0 .. limit)
@@ -97,7 +97,7 @@ do
         {
             immutable point = pixelToPoint!T(bounds, tuple(column, row),
                                              upperLeft, lowerRight);
-            immutable count = escapeTime!(255)(point);
+            immutable count = escapeTime(point, 255);
             pixels[row * bounds[0] + column] =
                 count.isNull ? 0 : cast(ubyte)(255 - count.get()); /* ensure count.get <= 255 */
         }
