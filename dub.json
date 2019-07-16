@@ -3,7 +3,7 @@
 		"Hiroki Noda"
 	],
 	"dependencies": {
-		"imagefmt": "~>2.0.1"
+		"imagefmt": "~>2.0.2"
 	},
 	"toolchainRequirements": {
 		"frontend": ">=2.087"
