@@ -45,13 +45,13 @@ pure @safe unittest
     {
         assert(parsePair!(T, ',')("").isNull);
         assert(parsePair!(T, ',')("10,").isNull);
-        assert(parsePair!(T, ',')("10,20").get() == tuple(10, 20));
+        assert(parsePair!(T, ',')("10,20") == tuple(10, 20));
         assert(parsePair!(T, ',')("10,20xy").isNull);
     }
     foreach (T; AliasSeq!(float, double))
     {
         assert(parsePair!(T, 'x')("0.5x").isNull);
-        assert(parsePair!(T, 'x')("0.5x1.5").get() == tuple(0.5, 1.5));
+        assert(parsePair!(T, 'x')("0.5x1.5") == tuple(0.5, 1.5));
     }
 }
 
@@ -64,7 +64,7 @@ Nullable!(Complex!double) parseComplex(string s) pure @safe
 
 pure @safe unittest
 {
-    assert(parseComplex("1.25,-0.0625").get() == complex(1.25, -0.0625));
+    assert(parseComplex("1.25,-0.0625") == complex(1.25, -0.0625));
     assert(parseComplex(",-0.0625").isNull);
 }
 
