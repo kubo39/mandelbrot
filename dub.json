@@ -8,6 +8,7 @@
 	"toolchainRequirements": {
 		"frontend": ">=2.087"
 	},
+	"dflags": ["-dip25", "-dip1000"],
 	"copyright": "Copyright © 2019, Hiroki Noda",
 	"description": "mandelbrot porting from Programming Rust.",
 	"license": "BSL-1.0",
