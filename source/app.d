@@ -1,10 +1,11 @@
 import core.stdc.stdlib : exit;
 import std.complex;
 import std.conv : to, ConvException;
+import std.meta : AliasSeq;
 import std.parallelism : parallel;
 import std.range : chunks;
 import std.stdio;
-import std.typecons : Nullable, Tuple, tuple;
+import std.typecons;
 
 import imagefmt : write_image;
 
@@ -40,7 +41,6 @@ Pair!T parsePair(T, char separator)(string s) pure @safe if (__traits(isArithmet
 
 pure @safe unittest
 {
-    import std.meta : AliasSeq;
     foreach (T; AliasSeq!(int, long, uint, ulong))
     {
         assert(parsePair!(T, ',')("").isNull);
@@ -88,17 +88,18 @@ Complex!double pixelToPoint(T)(Tuple!(T, T) bounds, Tuple!(T, T) pixel,
 void render(T)(ref ubyte[] pixels, Tuple!(T, T) bounds,
                Complex!double upperLeft, Complex!double lowerRight) @nogc pure nothrow @safe
     if (__traits(isIntegral,T))
-in { assert(pixels.length == bounds[0] * bounds[1]); }
-do
 {
-    foreach (row; 0 .. bounds[1])
+    T rows, columns;
+    AliasSeq(columns, rows) = bounds;
+    assert(pixels.length == columns * rows);
+    foreach (row; 0 .. rows)
     {
-        foreach (column; 0 .. bounds[0])
+        foreach (column; 0 .. columns)
         {
             immutable point = pixelToPoint!T(bounds, tuple(column, row),
                                              upperLeft, lowerRight);
             immutable count = escapeTime(point, 255);
-            pixels[row * bounds[0] + column] =
+            pixels[row * columns + column] =
                 count.isNull ? 0 : cast(ubyte)(255 - count.get()); /* ensure count.get <= 255 */
         }
     }
